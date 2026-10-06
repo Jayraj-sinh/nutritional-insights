@@ -1,0 +1,21 @@
+# Task 5 enhancement - multi-stage build for a smaller, faster image
+# Stage 1: build wheels with full toolchain
+FROM python:3.11-slim AS builder
+WORKDIR /build
+COPY requirements.txt .
+RUN pip wheel --no-cache-dir --wheel-dir /wheels \
+      pandas matplotlib seaborn azure-storage-blob
+
+# Stage 2: runtime only - no pip cache, no build tools, no tests, non-root user
+FROM python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 MPLBACKEND=Agg
+WORKDIR /app
+COPY --from=builder /wheels /wheels
+RUN pip install --no-cache-dir --no-index --find-links=/wheels /wheels/* \
+    && rm -rf /wheels \
+    && useradd --create-home appuser
+COPY data_analysis.py lambda_function.py ./
+COPY data/ ./data/
+RUN mkdir -p outputs simulated_nosql && chown -R appuser /app
+USER appuser
+CMD ["python", "data_analysis.py"]

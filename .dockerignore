@@ -1,0 +1,12 @@
+.git
+.github
+__pycache__
+*.pyc
+.pytest_cache
+outputs/
+simulated_nosql/
+incoming/
+screenshots/
+*.md
+venv/
+.venv/
