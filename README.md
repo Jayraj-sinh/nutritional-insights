@@ -12,3 +12,9 @@ pytest tests/                                        # tests
 ```
 
 See **GUIDE.md** for the full walkthrough.
+
+## Docker image
+Published on Docker Hub: https://hub.docker.com/r/jayrajsinhgohil/diet-analysis
+
+    docker pull jayrajsinhgohil/diet-analysis:latest
+    docker run --rm jayrajsinhgohil/diet-analysis
