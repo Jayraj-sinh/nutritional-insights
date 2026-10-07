@@ -1,5 +1,7 @@
 # Cloud-Native Nutritional Insights
 
+![CI/CD](https://github.com/Jayraj-sinh/nutritional-insights/actions/workflows/deploy.yml/badge.svg)
+
 Analyses `All_Diets.csv` (protein/carbs/fat by diet type and cuisine) with Pandas, containerised with Docker, processed by a simulated Azure Function reading from Azurite Blob Storage, and deployed through a GitHub Actions CI/CD pipeline.
 
 ```bash
